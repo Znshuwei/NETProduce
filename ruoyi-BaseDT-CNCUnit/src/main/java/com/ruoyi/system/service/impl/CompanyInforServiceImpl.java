@@ -8,10 +8,10 @@ import com.ruoyi.system.domain.CompanyInfor;
 import com.ruoyi.system.service.ICompanyInforService;
 
 /**
- * 用户管理Service业务层处理
+ * 用户信息Service业务层处理
  * 
  * @author ruoyi
- * @date 2021-06-18
+ * @date 2021-11-01
  */
 @Service
 public class CompanyInforServiceImpl implements ICompanyInforService 
@@ -20,10 +20,10 @@ public class CompanyInforServiceImpl implements ICompanyInforService
     private CompanyInforMapper companyInforMapper;
 
     /**
-     * 查询用户管理
+     * 查询用户信息
      * 
-     * @param companyId 用户管理ID
-     * @return 用户管理
+     * @param companyId 用户信息ID
+     * @return 用户信息
      */
     @Override
     public CompanyInfor selectCompanyInforById(Integer companyId)
@@ -32,10 +32,10 @@ public class CompanyInforServiceImpl implements ICompanyInforService
     }
 
     /**
-     * 查询用户管理列表
+     * 查询用户信息列表
      * 
-     * @param companyInfor 用户管理
-     * @return 用户管理
+     * @param companyInfor 用户信息
+     * @return 用户信息
      */
     @Override
     public List<CompanyInfor> selectCompanyInforList(CompanyInfor companyInfor)
@@ -44,9 +44,9 @@ public class CompanyInforServiceImpl implements ICompanyInforService
     }
 
     /**
-     * 新增用户管理
+     * 新增用户信息
      * 
-     * @param companyInfor 用户管理
+     * @param companyInfor 用户信息
      * @return 结果
      */
     @Override
@@ -56,9 +56,9 @@ public class CompanyInforServiceImpl implements ICompanyInforService
     }
 
     /**
-     * 修改用户管理
+     * 修改用户信息
      * 
-     * @param companyInfor 用户管理
+     * @param companyInfor 用户信息
      * @return 结果
      */
     @Override
@@ -68,9 +68,9 @@ public class CompanyInforServiceImpl implements ICompanyInforService
     }
 
     /**
-     * 批量删除用户管理
+     * 批量删除用户信息
      * 
-     * @param companyIds 需要删除的用户管理ID
+     * @param companyIds 需要删除的用户信息ID
      * @return 结果
      */
     @Override
@@ -80,9 +80,9 @@ public class CompanyInforServiceImpl implements ICompanyInforService
     }
 
     /**
-     * 删除用户管理信息
+     * 删除用户信息信息
      * 
-     * @param companyId 用户管理ID
+     * @param companyId 用户信息ID
      * @return 结果
      */
     @Override

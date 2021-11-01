@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CncunitManageProdeviceMapper">
+    
+    <resultMap type="CncunitManageProdevice" id="CncunitManageProdeviceResult">
+        <result property="manageProdevId"    column="manage_prodev_ID"    />
+        <result property="manageProdevName"    column="manage_prodev_Name"    />
+        <result property="manageProdevWkshopid"    column="manage_prodev_WkshopID"    />
+        <result property="manageProdevNumber"    column="manage_prodev_Number"    />
+        <result property="manageProdevDelflag"    column="manage_prodev_DelFlag"    />
+        <result property="manageProdevRemark"    column="manage_prodev_Remark"    />
+    </resultMap>
+
+    <sql id="selectCncunitManageProdeviceVo">
+        select manage_prodev_ID, manage_prodev_Name, manage_prodev_WkshopID, manage_prodev_Number, manage_prodev_DelFlag, manage_prodev_Remark from cncunit_manage_prodevice
+    </sql>
+
+    <select id="selectCncunitManageProdeviceList" parameterType="CncunitManageProdevice" resultMap="CncunitManageProdeviceResult">
+        <include refid="selectCncunitManageProdeviceVo"/>
+        <where>  
+            <if test="manageProdevName != null  and manageProdevName != ''"> and manage_prodev_Name like concat('%', #{manageProdevName}, '%')</if>
+            <if test="manageProdevWkshopid != null  and manageProdevWkshopid != ''"> and manage_prodev_WkshopID = #{manageProdevWkshopid}</if>
+            <if test="manageProdevNumber != null "> and manage_prodev_Number = #{manageProdevNumber}</if>
+            <if test="manageProdevDelflag != null "> and manage_prodev_DelFlag = #{manageProdevDelflag}</if>
+            <if test="manageProdevRemark != null  and manageProdevRemark != ''"> and manage_prodev_Remark = #{manageProdevRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectCncunitManageProdeviceById" parameterType="String" resultMap="CncunitManageProdeviceResult">
+        <include refid="selectCncunitManageProdeviceVo"/>
+        where manage_prodev_ID = #{manageProdevId}
+    </select>
+        
+    <insert id="insertCncunitManageProdevice" parameterType="CncunitManageProdevice">
+        insert into cncunit_manage_prodevice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="manageProdevId != null">manage_prodev_ID,</if>
+            <if test="manageProdevName != null and manageProdevName != ''">manage_prodev_Name,</if>
+            <if test="manageProdevWkshopid != null and manageProdevWkshopid != ''">manage_prodev_WkshopID,</if>
+            <if test="manageProdevNumber != null">manage_prodev_Number,</if>
+            <if test="manageProdevDelflag != null">manage_prodev_DelFlag,</if>
+            <if test="manageProdevRemark != null and manageProdevRemark != ''">manage_prodev_Remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="manageProdevId != null">#{manageProdevId},</if>
+            <if test="manageProdevName != null and manageProdevName != ''">#{manageProdevName},</if>
+            <if test="manageProdevWkshopid != null and manageProdevWkshopid != ''">#{manageProdevWkshopid},</if>
+            <if test="manageProdevNumber != null">#{manageProdevNumber},</if>
+            <if test="manageProdevDelflag != null">#{manageProdevDelflag},</if>
+            <if test="manageProdevRemark != null and manageProdevRemark != ''">#{manageProdevRemark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCncunitManageProdevice" parameterType="CncunitManageProdevice">
+        update cncunit_manage_prodevice
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="manageProdevName != null and manageProdevName != ''">manage_prodev_Name = #{manageProdevName},</if>
+            <if test="manageProdevWkshopid != null and manageProdevWkshopid != ''">manage_prodev_WkshopID = #{manageProdevWkshopid},</if>
+            <if test="manageProdevNumber != null">manage_prodev_Number = #{manageProdevNumber},</if>
+            <if test="manageProdevDelflag != null">manage_prodev_DelFlag = #{manageProdevDelflag},</if>
+            <if test="manageProdevRemark != null and manageProdevRemark != ''">manage_prodev_Remark = #{manageProdevRemark},</if>
+        </trim>
+        where manage_prodev_ID = #{manageProdevId}
+    </update>
+
+    <delete id="deleteCncunitManageProdeviceById" parameterType="String">
+        delete from cncunit_manage_prodevice where manage_prodev_ID = #{manageProdevId}
+    </delete>
+
+    <delete id="deleteCncunitManageProdeviceByIds" parameterType="String">
+        delete from cncunit_manage_prodevice where manage_prodev_ID in 
+        <foreach item="manageProdevId" collection="array" open="(" separator="," close=")">
+            #{manageProdevId}
+        </foreach>
+    </delete>
+</mapper>

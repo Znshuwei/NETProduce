@@ -30,10 +30,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectCompanyInforList" parameterType="CompanyInfor" resultMap="CompanyInforResult">
         <include refid="selectCompanyInforVo"/>
         <where>  
-            <if test="companyId != null "> and Company_Id = #{companyId}</if>
+            <if test="companyCode != null  and companyCode != ''"> and Company_Code = #{companyCode}</if>
             <if test="companyName != null  and companyName != ''"> and Company_Name like concat('%', #{companyName}, '%')</if>
-            <if test="companyArea != null  and companyArea != ''"> and Company_area = #{companyArea}</if>
+            <if test="companyArea != null  and companyArea != ''"> and Company_area like concat('%', #{companyArea}, '%')</if>
+            <if test="companyAddress != null  and companyAddress != ''"> and Company_Address = #{companyAddress}</if>
             <if test="companyLinkmain != null  and companyLinkmain != ''"> and Company_LinkMain = #{companyLinkmain}</if>
+            <if test="companyPhone != null  and companyPhone != ''"> and Company_Phone = #{companyPhone}</if>
+            <if test="companySetuptime != null "> and Company_SetUpTime = #{companySetuptime}</if>
+            <if test="companyNature != null  and companyNature != ''"> and Company_Nature = #{companyNature}</if>
+            <if test="companyRegmoney != null "> and Company_RegMoney = #{companyRegmoney}</if>
+            <if test="companyFxedassets != null "> and Company_FxedAssets = #{companyFxedassets}</if>
+            <if test="companyUrl != null  and companyUrl != ''"> and Company_URL = #{companyUrl}</if>
+            <if test="companyEmail != null  and companyEmail != ''"> and Company_EMail = #{companyEmail}</if>
+            <if test="companyCreateperson != null  and companyCreateperson != ''"> and Company_CreatePerson = #{companyCreateperson}</if>
+            <if test="companyCreatedate != null "> and Company_Createdate = #{companyCreatedate}</if>
+            <if test="companyDelflag != null "> and Company_DelFlag = #{companyDelflag}</if>
         </where>
     </select>
     

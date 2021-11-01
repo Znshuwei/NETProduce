@@ -1,0 +1,103 @@
+package com.ruoyi.system.controller;
+
+import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.system.domain.CncunitManageProdevice;
+import com.ruoyi.system.service.ICncunitManageProdeviceService;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.common.core.page.TableDataInfo;
+
+/**
+ * 工艺设备数据Controller
+ * 
+ * @author ruoyi
+ * @date 2021-10-31
+ */
+@RestController
+@RequestMapping("/system/prodevice")
+public class CncunitManageProdeviceController extends BaseController
+{
+    @Autowired
+    private ICncunitManageProdeviceService cncunitManageProdeviceService;
+
+    /**
+     * 查询工艺设备数据列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:prodevice:list')")
+    @GetMapping("/list")
+    public TableDataInfo list(CncunitManageProdevice cncunitManageProdevice)
+    {
+        startPage();
+        List<CncunitManageProdevice> list = cncunitManageProdeviceService.selectCncunitManageProdeviceList(cncunitManageProdevice);
+        return getDataTable(list);
+    }
+
+    /**
+     * 导出工艺设备数据列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:prodevice:export')")
+    @Log(title = "工艺设备数据", businessType = BusinessType.EXPORT)
+    @GetMapping("/export")
+    public AjaxResult export(CncunitManageProdevice cncunitManageProdevice)
+    {
+        List<CncunitManageProdevice> list = cncunitManageProdeviceService.selectCncunitManageProdeviceList(cncunitManageProdevice);
+        ExcelUtil<CncunitManageProdevice> util = new ExcelUtil<CncunitManageProdevice>(CncunitManageProdevice.class);
+        return util.exportExcel(list, "工艺设备数据数据");
+    }
+
+    /**
+     * 获取工艺设备数据详细信息
+     */
+    @PreAuthorize("@ss.hasPermi('system:prodevice:query')")
+    @GetMapping(value = "/{manageProdevId}")
+    public AjaxResult getInfo(@PathVariable("manageProdevId") String manageProdevId)
+    {
+        return AjaxResult.success(cncunitManageProdeviceService.selectCncunitManageProdeviceById(manageProdevId));
+    }
+
+    /**
+     * 新增工艺设备数据
+     */
+    @PreAuthorize("@ss.hasPermi('system:prodevice:add')")
+    @Log(title = "工艺设备数据", businessType = BusinessType.INSERT)
+    @PostMapping
+    public AjaxResult add(@RequestBody CncunitManageProdevice cncunitManageProdevice)
+    {
+        return toAjax(cncunitManageProdeviceService.insertCncunitManageProdevice(cncunitManageProdevice));
+    }
+
+    /**
+     * 修改工艺设备数据
+     */
+    @PreAuthorize("@ss.hasPermi('system:prodevice:edit')")
+    @Log(title = "工艺设备数据", businessType = BusinessType.UPDATE)
+    @PutMapping
+    public AjaxResult edit(@RequestBody CncunitManageProdevice cncunitManageProdevice)
+    {
+        return toAjax(cncunitManageProdeviceService.updateCncunitManageProdevice(cncunitManageProdevice));
+    }
+
+    /**
+     * 删除工艺设备数据
+     */
+    @PreAuthorize("@ss.hasPermi('system:prodevice:remove')")
+    @Log(title = "工艺设备数据", businessType = BusinessType.DELETE)
+	@DeleteMapping("/{manageProdevIds}")
+    public AjaxResult remove(@PathVariable String[] manageProdevIds)
+    {
+        return toAjax(cncunitManageProdeviceService.deleteCncunitManageProdeviceByIds(manageProdevIds));
+    }
+}
